@@ -1,0 +1,312 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.tdd.dao.TgInfoMapper">
+  <resultMap id="BaseResultMap" type="com.tdd.model.TgInfo">
+    <id column="id" jdbcType="INTEGER" property="id" />
+        <result column="pro_id" property="proId" jdbcType="INTEGER" />
+  <result column="pro_price" property="proPrice" jdbcType="DOUBLE" />
+  <result column="tg_img" property="tgImg" jdbcType="VARCHAR" />
+  <result column="tg_title" property="tgTitle" jdbcType="VARCHAR" />
+  <result column="tg_price" property="tgPrice" jdbcType="DOUBLE" />
+  <result column="tg_num" property="tgNum" jdbcType="INTEGER" />
+  <result column="tg_start_time" property="tgStartTime" jdbcType="VARCHAR" />
+  <result column="tg_end_time" property="tgEndTime" jdbcType="VARCHAR" />
+  <result column="tg_status" property="tgStatus" jdbcType="INTEGER" />
+  <result column="tz_id" property="tzId" jdbcType="INTEGER" />
+  <result column="create_time" property="createTime" jdbcType="VARCHAR" />
+
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+     id,pro_id,pro_price,tg_img,tg_title,tg_price,tg_num,tg_start_time,tg_end_time,tg_status,tz_id,create_time
+  </sql>
+  <select id="selectByExample" parameterType="com.tdd.model.TgInfoExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from tg_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="startRow >= 0 and pageRows > 0">
+      limit ${startRow},${pageRows}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+     from tg_info
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+   delete from tg_info
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.tdd.model.TgInfoExample">
+    delete from tg_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.tdd.model.TgInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+      insert into tg_info (pro_id,pro_price,tg_img,tg_title,tg_price,tg_num,tg_start_time,tg_end_time,tg_status,tz_id,create_time)
+      values (	#{id,jdbcType=INTEGER},	#{proId,jdbcType=INTEGER},	#{proPrice,jdbcType=DOUBLE},	#{tgImg,jdbcType=VARCHAR},	#{tgTitle,jdbcType=VARCHAR},	#{tgPrice,jdbcType=DOUBLE},	#{tgNum,jdbcType=INTEGER},	#{tgStartTime,jdbcType=VARCHAR},	#{tgEndTime,jdbcType=VARCHAR},	#{tgStatus,jdbcType=INTEGER},	#{tzId,jdbcType=INTEGER},	#{createTime,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.tdd.model.TgInfo">
+    <selectKey keyProperty="id" order="AFTER" resultType="java.lang.Integer">
+      SELECT LAST_INSERT_ID()
+    </selectKey>
+    insert into tg_info
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null" >
+	  id,
+ </if>
+<if test="proId != null" >
+	  pro_id,
+ </if>
+<if test="proPrice != null" >
+	  pro_price,
+ </if>
+<if test="tgImg != null" >
+	  tg_img,
+ </if>
+<if test="tgTitle != null" >
+	  tg_title,
+ </if>
+<if test="tgPrice != null" >
+	  tg_price,
+ </if>
+<if test="tgNum != null" >
+	  tg_num,
+ </if>
+<if test="tgStartTime != null" >
+	  tg_start_time,
+ </if>
+<if test="tgEndTime != null" >
+	  tg_end_time,
+ </if>
+<if test="tgStatus != null" >
+	  tg_status,
+ </if>
+<if test="tzId != null" >
+	  tz_id,
+ </if>
+<if test="createTime != null" >
+	  create_time
+ </if>
+
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+         <if test="id != null" >
+	 #{id,jdbcType=INTEGER},
+	 </if>
+  <if test="proId != null" >
+	 #{proId,jdbcType=INTEGER},
+	 </if>
+  <if test="proPrice != null" >
+	 #{proPrice,jdbcType=DOUBLE},
+	 </if>
+  <if test="tgImg != null" >
+	 #{tgImg,jdbcType=VARCHAR},
+	 </if>
+  <if test="tgTitle != null" >
+	 #{tgTitle,jdbcType=VARCHAR},
+	 </if>
+  <if test="tgPrice != null" >
+	 #{tgPrice,jdbcType=DOUBLE},
+	 </if>
+  <if test="tgNum != null" >
+	 #{tgNum,jdbcType=INTEGER},
+	 </if>
+  <if test="tgStartTime != null" >
+	 #{tgStartTime,jdbcType=VARCHAR},
+	 </if>
+  <if test="tgEndTime != null" >
+	 #{tgEndTime,jdbcType=VARCHAR},
+	 </if>
+  <if test="tgStatus != null" >
+	 #{tgStatus,jdbcType=INTEGER},
+	 </if>
+  <if test="tzId != null" >
+	 #{tzId,jdbcType=INTEGER},
+	 </if>
+  <if test="createTime != null" >
+	 #{createTime,jdbcType=VARCHAR},
+	 </if>
+
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.tdd.model.TgInfoExample" resultType="java.lang.Long">
+    select count(*) from tg_info
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update tg_info
+    <set>
+       <if test="record.id != null" >
+	 id = #{record.id,jdbcType=INTEGER},
+</if>
+ <if test="record.proId != null" >
+	 pro_id = #{record.proId,jdbcType=INTEGER},
+</if>
+ <if test="record.proPrice != null" >
+	 pro_price = #{record.proPrice,jdbcType=DOUBLE},
+</if>
+ <if test="record.tgImg != null" >
+	 tg_img = #{record.tgImg,jdbcType=VARCHAR},
+</if>
+ <if test="record.tgTitle != null" >
+	 tg_title = #{record.tgTitle,jdbcType=VARCHAR},
+</if>
+ <if test="record.tgPrice != null" >
+	 tg_price = #{record.tgPrice,jdbcType=DOUBLE},
+</if>
+ <if test="record.tgNum != null" >
+	 tg_num = #{record.tgNum,jdbcType=INTEGER},
+</if>
+ <if test="record.tgStartTime != null" >
+	 tg_start_time = #{record.tgStartTime,jdbcType=VARCHAR},
+</if>
+ <if test="record.tgEndTime != null" >
+	 tg_end_time = #{record.tgEndTime,jdbcType=VARCHAR},
+</if>
+ <if test="record.tgStatus != null" >
+	 tg_status = #{record.tgStatus,jdbcType=INTEGER},
+</if>
+ <if test="record.tzId != null" >
+	 tz_id = #{record.tzId,jdbcType=INTEGER},
+</if>
+ <if test="record.createTime != null" >
+	 create_time = #{record.createTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update tg_info
+    set 
+    				id = #{record.id,jdbcType=INTEGER},	pro_id = #{record.proId,jdbcType=INTEGER},	pro_price = #{record.proPrice,jdbcType=DOUBLE},	tg_img = #{record.tgImg,jdbcType=VARCHAR},	tg_title = #{record.tgTitle,jdbcType=VARCHAR},	tg_price = #{record.tgPrice,jdbcType=DOUBLE},	tg_num = #{record.tgNum,jdbcType=INTEGER},	tg_start_time = #{record.tgStartTime,jdbcType=VARCHAR},	tg_end_time = #{record.tgEndTime,jdbcType=VARCHAR},	tg_status = #{record.tgStatus,jdbcType=INTEGER},	tz_id = #{record.tzId,jdbcType=INTEGER},	create_time = #{record.createTime,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.tdd.model.TgInfo">
+    update tg_info
+    <set>
+       <if test="id != null" >
+	 id = #{id,jdbcType=INTEGER},
+</if>
+ <if test="proId != null" >
+	 pro_id = #{proId,jdbcType=INTEGER},
+</if>
+ <if test="proPrice != null" >
+	 pro_price = #{proPrice,jdbcType=DOUBLE},
+</if>
+ <if test="tgImg != null" >
+	 tg_img = #{tgImg,jdbcType=VARCHAR},
+</if>
+ <if test="tgTitle != null" >
+	 tg_title = #{tgTitle,jdbcType=VARCHAR},
+</if>
+ <if test="tgPrice != null" >
+	 tg_price = #{tgPrice,jdbcType=DOUBLE},
+</if>
+ <if test="tgNum != null" >
+	 tg_num = #{tgNum,jdbcType=INTEGER},
+</if>
+ <if test="tgStartTime != null" >
+	 tg_start_time = #{tgStartTime,jdbcType=VARCHAR},
+</if>
+ <if test="tgEndTime != null" >
+	 tg_end_time = #{tgEndTime,jdbcType=VARCHAR},
+</if>
+ <if test="tgStatus != null" >
+	 tg_status = #{tgStatus,jdbcType=INTEGER},
+</if>
+ <if test="tzId != null" >
+	 tz_id = #{tzId,jdbcType=INTEGER},
+</if>
+ <if test="createTime != null" >
+	 create_time = #{createTime,jdbcType=VARCHAR}
+</if>
+
+    </set>
+     where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.tdd.model.TgInfo">
+    update tg_info
+    set 
+     			id = #{id,jdbcType=INTEGER},	pro_id = #{proId,jdbcType=INTEGER},	pro_price = #{proPrice,jdbcType=DOUBLE},	tg_img = #{tgImg,jdbcType=VARCHAR},	tg_title = #{tgTitle,jdbcType=VARCHAR},	tg_price = #{tgPrice,jdbcType=DOUBLE},	tg_num = #{tgNum,jdbcType=INTEGER},	tg_start_time = #{tgStartTime,jdbcType=VARCHAR},	tg_end_time = #{tgEndTime,jdbcType=VARCHAR},	tg_status = #{tgStatus,jdbcType=INTEGER},	tz_id = #{tzId,jdbcType=INTEGER},	create_time = #{createTime,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
